@@ -1,0 +1,237 @@
+1) Install virtualenv , pip and mysql 
+sudo apt-get install python-virtualenv
+sudo apt-get install python-pip
+sudo apt-get install mysql-server
+
+connect to mysql from terminal: 
+mysql -u root -p 
+
+2) Create a virtual environment
+cd ~
+- /home/user
+virtualenv ankit_env
+3) Activate virtual env
+source ~/ankit_env/bin/activate 
+(ankit_env)user@.....
+
+4) Install Django in virtual env. 
+$ pip install django==1.8
+$ ls ~/ankit_env/lib/python2.7/site-packages/  | grep -i django
+
+5) Now will create project as per following tutorial
+https://docs.djangoproject.com/en/1.8/intro/tutorial01/
+$ cd /home/user/workspace/
+$ django-admin.py startproject mysite
+$ cd mysite 
+$ python manage.py runserver 
+127.0.0.1:8000 
+
+6) Install work bench
+Go to Ubuntu software center. search Mysql , install Mysql work bench
+Create connection in workbench 
+localhost | root | root  Saved connection. 
+
+7) Configure ankit_env with mysite project on eclipse
+
+i) Right click project ii) properties iii) Pydev interpereter 
+iv) click here to configure interpereter not listed
+v) New  > ankit_new 
+Path /home/user/ankit_env/bin/python2.7
+Apply 
+
+
+
+
+
+8)Create database and apply settings.
+mysql > CREATE DATABASE mysite;
+
+A) In settings.py applied above connection detail
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'mysite',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',   
+        'PORT': '3306',
+    }
+}
+
+
+$  python manage.py migrate 
+No module named MySQLdb
+sudo apt-get install libmysqlclient-dev python-dev 
+pip install Mysql-python
+
+9) Django is a collection of APPS. Which are mentioned in INSTALLED_APPS variable in 
+**** settings.py
+INSTALLED_APPS = (
+    'django.contrib.admin',  # Admin for role , user ****&&&&&####
+    'django.contrib.auth',  # Login authentication **** 
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',  # Session management **** 
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+)
+*** urls.py 
+from django.conf.urls import include, url
+from django.contrib import admin  #****&&&&&####
+
+urlpatterns = [
+    # Examples:
+    # url(r'^$', 'mysite.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
+]
+
+*****   python manage.py migrate 
+(ankit_env)user@user-Vostro-1015:~/workspace/mysite$ python manage.py migrate
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles, messages
+  Apply all migrations: admin, contenttypes, auth, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+  Installing custom SQL...
+Running migrations:
+  Rendering model states... DONE
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying sessions.0001_initial... OK
+
+
+SHOW TABLES;
+
+'auth_group'
+'auth_group_permissions'
+'auth_permission'
+'auth_user'
+'auth_user_groups'
+'auth_user_user_permissions'
+'django_admin_log'
+'django_content_type'
+'django_migrations'
+'django_session'
+
+
+from django.contrib.auth.models import User
+User.objects.get(username=root)
+user=User.objects.get(username=root)
+user.first_name="Ankit"
+user.last_name="Saxena"
+user.save()
+****  python manage.py createsuperuser 
+  root - root 
+  
+  python manage.py shell 
+from django.contrib.auth.models import User
+User.objects.all()[0]
+[<User: root>]
+>>> user=User.objects.get(username='root')
+>>> print user
+root
+>>> user.first_name="Ankit"
+>>> user.last_name="Saxena"
+>>> user.save()
+>>> print user.first_name
+Ankit
+>>> print user.last_name
+Saxena
+>>> print user.username
+root
+>>> print user.password
+pbkdf2_sha256$20000$qJk9E593iiIJ$8h/5L8hNU/+k3GJ4fLGghJqaJ9J+Ghj6bnjZzVsssYI=
+>>> from info import obj_info
+>>> obj_info(User,html=True,file_name="User.html")
+
+file:///home/user/workspace/mysite/User.html
+
+>>> from django.contrib.auth import authenticate
+>>> print  authenticate(username='root',password='root')
+root
+>>> print  authenticate(username='root',password='root1')
+None
+
+>>> user= authenticate(username='root',password='root') 
+>>> user
+<User: root>
+>>> type(user)
+<class 'django.contrib.auth.models.User'>
+
+
+
+
+
+  
+  
+       
+
+***TODO* python manage.py create_user , changepasword from console. 
+Also from Shell i.e. python code.
+
+Tutorial 1
+==========
+https://docs.djangoproject.com/en/1.8/intro/tutorial01/
+https://docs.djangoproject.com/en/1.8/intro/tutorial02/
+https://docs.djangoproject.com/en/1.8/intro/tutorial03/
+https://docs.djangoproject.com/en/1.8/intro/tutorial04/
+https://docs.djangoproject.com/en/1.8/intro/tutorial05/
+https://docs.djangoproject.com/en/1.8/intro/tutorial06/
+
+
+After Above  tutorial go for http://masteringdjango.com/django-book/
+Ankit (When done with both Django tuts + masterdjango.com) explore
+https://docs.djangoproject.com/en/1.8/topics/                                                             
+
+
+Than try:
+Tutorial : Login Registration APP 
+
+https://mayukhsaha.wordpress.com/2013/05/09/simple-login-and-user-registration-application-using-django/
+project_name => login_project
+DB -> Mysql 
+syncdb => makemigrations & migrate
+
+
+
+Advance Tutorial(For Nishant)
+================
+https://docs.djangoproject.com/en/1.8/intro/reusable-apps/
+https://docs.djangoproject.com/en/1.8/intro/whatsnext/
+https://docs.djangoproject.com/en/1.8/intro/contributing/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+ 
