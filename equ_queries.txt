@@ -1,0 +1,22 @@
+ -------------------
+ Question.objects.all()
+ SELECT `polls_question`.`id`, `polls_question`.`question_text`, `polls_question`.`pub_date` 
+ 		FROM `polls_question` 
+ LIMIT 21
+  -------------------
+ Question.objects.filter(question_text__startswith='What')
+ SELECT `polls_question`.`id`, `polls_question`.`question_text`, `polls_question`.`pub_date` FROM `polls_question` 
+ 		WHERE `polls_question`.`question_text` 
+ 		LIKE BINARY 'What%'
+LIMIT 21
+i.e.    field__startswith ==> LIKE 'What%'
+		field__endswith ==> LIKE '%What'
+----------
+Question.objects.get(id=2)   => WHERE `polls_question`.`id` = 2
+
+-------
+ 		
+ 		
+ 
+ 
+ 

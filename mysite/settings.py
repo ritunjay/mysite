@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'bootstrap_admin', # Third party . always before django.contrib.admin
+    #'bootstrap_admin', # Third party . always before django.contrib.admin
     'django.contrib.admin', # Inbuilt apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
