@@ -1,0 +1,13 @@
+django-admin.py startproject <project_name>
+python manage.py runserver 
+#When change in model, will create new migration file e.g. /migrations/0001_initial.py
+python manage.py makemigrations  
+# show sql of specific migration
+python manage.py sqlmigrate <app_name:polls> <migration_no:0001> 
+# Will create entries for migrations, and make entry in django_migration table
+python manage.py migrate 
+
+python manage.py createsuperuser
+
+python manage.py changepassword <user_name>
+python manage.py shell 
